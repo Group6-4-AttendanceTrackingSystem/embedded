@@ -25,21 +25,26 @@ signal.signal(signal.SIGINT, signal_handler)
 def read_qrcode(event):
     cad.lcd.clear()
     cad.lcd.write("Searching QR Code")
+    print "Searching QR Code"
     result=qrcode.lesen().strip()
     cad.lcd.clear()
     cad.lcd.write("Sending Attendance to Server")
+    print "Sending Attendance to Server"
     url = "http://ase2017-group6-4.appspot.com/attendance/"
     response = requests.put(url, data=result)
     if (response.status_code==200):
         cad.lcd.clear()
         cad.lcd.write("Success")
+	print "Success"
     else:
         cad.lcd.clear()
         cad.lcd.write("Failure")
+	print "Failure"
     
 
 cad = pifacecad.PiFaceCAD()
-cad.lcd.write("Press Button to Scan")
+cad.lcd.write("Application Started")
+print "Application Started"
 listener = pifacecad.SwitchEventListener(chip=cad)
 
 
